@@ -1,0 +1,8 @@
+.swp
+.*.swp
+*.pyc
+*.log
+*.pot
+settings.py
+django.wsgi
+/static/

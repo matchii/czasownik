@@ -1,0 +1,61 @@
+<html>
+<head>
+    <title>Czasownik</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% get_static_prefix %}style.css" />
+    <script type="text/javascript" src="{% get_static_prefix %}js/jquery-1.6.4.min.js"></script>
+    <script type="text/javascript" src="{% get_static_prefix %}js/list.js"></script>
+</head>
+<body>
+
+<ol id="task_list">
+{% if lista %}
+    {% for task in lista %}
+    <li id="task_{{ task.id }}_container" task-id="{{ task.id }}" class="task_div">
+        <input
+            type="text"
+            maxlength="255"
+            name="what"
+            placeholder="co robię" size="30" value="{{ task.what|default_if_none:'' }}" />
+        <button
+            type="button"
+            class="start_time"
+            title="Start">Start</button>
+        <input
+            type="text"
+            name="from_hour"
+            class="time_input"
+            id="task_{{ task.id }}_from"
+            maxlength="5"
+            placeholder="od" size="3" value="{{ task.from_hour|time:'H:i' }}" />
+        <button
+            type="button"
+            class="stop_time"
+            title="Stop">Stop</button>
+        <input
+            type="text"
+            name="to_hour"
+            class="time_input"
+            id="task_{{ task.id }}_to"
+            maxlength="5"
+            placeholder="do" size="3" value="{{ task.to_hour|time:'H:i' }}" />
+        <button
+            type="button"
+            class="save_button"
+            title="zapisz">Zapisz</button>
+        <button
+            type="button"
+            class="delete_button"
+            title="usuń">Usuń</button>
+        <span name="delta">{{ task.delta }}</span>
+        <img style="display: none;" src="static/images/loading.gif" />
+        <div class="timeBar" style="width: {{ task.barWidth }}px;"></div>
+    </li>
+    {% endfor %}
+{% endif %}
+</ol>
+
+<button type="button" id="new_task" value="Nowy">Nowy</button>
+
+</body>
+</html>
